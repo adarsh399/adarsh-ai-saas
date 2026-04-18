@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ParticlesBackground from "../components/ParticlesBackground";
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -23,7 +22,6 @@ export default function Home() {
 
       const data = await res.json();
 
-      // add empty AI message
       setMessages((prev) => [...prev, { role: "ai", text: "" }]);
 
       let text = data.reply || "No response";
@@ -53,66 +51,56 @@ export default function Home() {
   return (
     <div style={{ position: "relative", color: "white" }}>
       
-      {/* 🌌 BACKGROUND */}
-      <ParticlesBackground />
+      {/* 🌌 SAFE BACKGROUND */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: -1,
+          background:
+            "radial-gradient(circle at 20% 20%, #111, #000 60%)",
+        }}
+      />
 
       {/* 🚀 HERO */}
       <section style={{ textAlign: "center", padding: "120px 20px" }}>
         
         <motion.h1
-          initial={{ opacity: 0, y: -120 }}
+          initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
           style={{
             fontSize: "70px",
             fontWeight: "bold",
             background: "linear-gradient(90deg, #00f5ff, #7a00ff)",
             WebkitBackgroundClip: "text",
             color: "transparent",
-            textShadow: "0 0 25px rgba(0,245,255,0.3)"
           }}
         >
           Adarsh AI
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          style={{ opacity: 0.7, marginTop: 10, fontSize: "18px" }}
-        >
+        <p style={{ opacity: 0.7, marginTop: 10 }}>
           Build. Automate. Scale with AI 🚀
-        </motion.p>
+        </p>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+        <p
           style={{
             opacity: 0.6,
             marginTop: 10,
             maxWidth: 600,
-            marginInline: "auto"
+            marginInline: "auto",
           }}
         >
           I help businesses automate workflows, build AI systems, and scale faster.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          style={{ marginTop: 30 }}
-        >
+        <div style={{ marginTop: 30 }}>
           <button className="btn" style={{ marginRight: 10 }}>
             🚀 Get Started
           </button>
-
-          <button className="btn">
-            💼 Hire Me
-          </button>
-        </motion.div>
-
+          <button className="btn">💼 Hire Me</button>
+        </div>
       </section>
 
       {/* 🤖 CHAT */}
@@ -210,31 +198,17 @@ export default function Home() {
       </section>
 
       {/* 📊 STATS */}
-      <section
-        style={{
-          padding: 60,
-          textAlign: "center",
-          background: "rgba(255,255,255,0.02)",
-        }}
-      >
+      <section style={{ padding: 60, textAlign: "center" }}>
         <h2>📈 Growth Impact</h2>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 40,
-            marginTop: 30,
-            flexWrap: "wrap",
-          }}
-        >
+        <div style={{ display: "flex", justifyContent: "center", gap: 40, marginTop: 30, flexWrap: "wrap" }}>
           <div><h1>10+</h1><p>Projects</p></div>
           <div><h1>100%</h1><p>Focus</p></div>
           <div><h1>24/7</h1><p>Automation</p></div>
         </div>
       </section>
 
-      {/* 🚀 FINAL CTA */}
+      {/* 🚀 CTA */}
       <section style={{ padding: 80, textAlign: "center" }}>
         <h2>🚀 Ready to Build?</h2>
         <p style={{ opacity: 0.7 }}>Let’s create your AI system.</p>
@@ -243,7 +217,7 @@ export default function Home() {
         </button>
       </section>
 
-      {/* 🔻 FOOTER */}
+      {/* FOOTER */}
       <footer style={{ textAlign: "center", padding: 30, opacity: 0.5 }}>
         © 2026 Adarsh AI
       </footer>
