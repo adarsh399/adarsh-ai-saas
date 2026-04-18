@@ -1,0 +1,96 @@
+/* 🌌 GLOBAL RESET */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: white;
+  overflow-x: hidden;
+
+  /* 🔥 premium gradient background (NOT plain black) */
+  background: radial-gradient(circle at 20% 30%, #0f172a, #020617 70%);
+}
+
+/* 💡 GLOW LIGHT LEFT */
+body::before {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.2), transparent);
+  top: -100px;
+  left: -100px;
+  filter: blur(120px);
+  z-index: -1;
+}
+
+/* 💡 GLOW LIGHT RIGHT */
+body::after {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(123, 0, 255, 0.2), transparent);
+  bottom: -100px;
+  right: -100px;
+  filter: blur(120px);
+  z-index: -1;
+}
+
+/* 🧊 GLASS CARD (UPGRADED) */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.1),
+    0 0 40px rgba(123, 0, 255, 0.1);
+
+  transition: 0.3s;
+}
+
+/* ✨ hover glow */
+.glass:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 0 25px rgba(0, 255, 255, 0.2),
+    0 0 50px rgba(123, 0, 255, 0.2);
+}
+
+/* ⚡ NEON BUTTON (UPGRADED) */
+.btn {
+  background: linear-gradient(135deg, #00f5ff, #7a00ff);
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* 🔥 hover glow */
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 15px #00f5ff,
+    0 0 30px #7a00ff;
+}
+
+/* 💬 INPUT FIELD STYLE */
+input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  border-radius: 8px;
+}
+
+/* ✨ SCROLLBAR (optional but premium feel) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#00f5ff, #7a00ff);
+  border-radius: 10px;
+}
