@@ -23,6 +23,7 @@ export default function Home() {
 
       const data = await res.json();
 
+      // add empty AI message
       setMessages((prev) => [...prev, { role: "ai", text: "" }]);
 
       let text = data.reply || "No response";
@@ -56,36 +57,62 @@ export default function Home() {
       <ParticlesBackground />
 
       {/* 🚀 HERO */}
-      <section style={{ textAlign: "center", padding: "100px 20px" }}>
+      <section style={{ textAlign: "center", padding: "120px 20px" }}>
+        
         <motion.h1
-          initial={{ opacity: 0, y: -60 }}
+          initial={{ opacity: 0, y: -120 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
-            fontSize: "60px",
+            fontSize: "70px",
             fontWeight: "bold",
             background: "linear-gradient(90deg, #00f5ff, #7a00ff)",
             WebkitBackgroundClip: "text",
             color: "transparent",
+            textShadow: "0 0 25px rgba(0,245,255,0.3)"
           }}
         >
           Adarsh AI
         </motion.h1>
 
-        <p style={{ opacity: 0.7, marginTop: 10 }}>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          style={{ opacity: 0.7, marginTop: 10, fontSize: "18px" }}
+        >
           Build. Automate. Scale with AI 🚀
-        </p>
+        </motion.p>
 
-        <p style={{ opacity: 0.6, marginTop: 10, maxWidth: 600, marginInline: "auto" }}>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          style={{
+            opacity: 0.6,
+            marginTop: 10,
+            maxWidth: 600,
+            marginInline: "auto"
+          }}
+        >
           I help businesses automate workflows, build AI systems, and scale faster.
-        </p>
+        </motion.p>
 
-        <div style={{ marginTop: 30 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          style={{ marginTop: 30 }}
+        >
           <button className="btn" style={{ marginRight: 10 }}>
             🚀 Get Started
           </button>
-          <button className="btn">💼 Hire Me</button>
-        </div>
+
+          <button className="btn">
+            💼 Hire Me
+          </button>
+        </motion.div>
+
       </section>
 
       {/* 🤖 CHAT */}
@@ -93,22 +120,26 @@ export default function Home() {
         <div className="glass" style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
           <h2>🤖 Talk to Adarsh AI</h2>
 
-          <div style={{
-            height: 300,
-            overflowY: "auto",
-            background: "#111",
-            padding: 10,
-            borderRadius: 10,
-          }}>
+          <div
+            style={{
+              height: 300,
+              overflowY: "auto",
+              background: "#111",
+              padding: 10,
+              borderRadius: 10,
+            }}
+          >
             {messages.map((m, i) => (
               <div key={i} style={{ textAlign: m.role === "user" ? "right" : "left" }}>
-                <span style={{
-                  background: m.role === "user" ? "#0070f3" : "#222",
-                  padding: "6px 10px",
-                  borderRadius: 8,
-                  display: "inline-block",
-                  marginBottom: 8,
-                }}>
+                <span
+                  style={{
+                    background: m.role === "user" ? "#0070f3" : "#222",
+                    padding: "6px 10px",
+                    borderRadius: 8,
+                    display: "inline-block",
+                    marginBottom: 8,
+                  }}
+                >
                   {m.text}
                 </span>
               </div>
@@ -151,14 +182,16 @@ export default function Home() {
       <section style={{ padding: 60, textAlign: "center" }}>
         <h2>⚡ What I Build</h2>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: 20,
-          maxWidth: 1000,
-          margin: "auto",
-          marginTop: 30
-        }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: 20,
+            maxWidth: 1000,
+            margin: "auto",
+            marginTop: 30,
+          }}
+        >
           <div className="glass" style={{ padding: 20 }}>
             <h3>🤖 AI Chatbots</h3>
             <p>Smart assistants for automation.</p>
@@ -177,20 +210,24 @@ export default function Home() {
       </section>
 
       {/* 📊 STATS */}
-      <section style={{
-        padding: 60,
-        textAlign: "center",
-        background: "rgba(255,255,255,0.02)"
-      }}>
+      <section
+        style={{
+          padding: 60,
+          textAlign: "center",
+          background: "rgba(255,255,255,0.02)",
+        }}
+      >
         <h2>📈 Growth Impact</h2>
 
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 40,
-          marginTop: 30,
-          flexWrap: "wrap"
-        }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 40,
+            marginTop: 30,
+            flexWrap: "wrap",
+          }}
+        >
           <div><h1>10+</h1><p>Projects</p></div>
           <div><h1>100%</h1><p>Focus</p></div>
           <div><h1>24/7</h1><p>Automation</p></div>
