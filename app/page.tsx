@@ -2,37 +2,49 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import HudBackground from "../components/HudBackground";
+
+const fadeUp = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, ease: "easeOut" },
+  viewport: { once: true, amount: 0.2 },
+};
 
 export default function Home() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
 
   const sendMessage = async () => {
-    if (!input) return;
+    if (!input.trim()) return;
 
     const userMsg = { role: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
+    setInput("");
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: userMsg.text }),
       });
 
       const data = await res.json();
+      const text = data.reply || "No response";
 
       setMessages((prev) => [...prev, { role: "ai", text: "" }]);
 
-      let text = data.reply || "No response";
       let index = 0;
-
       const typing = setInterval(() => {
         index++;
 
         setMessages((prev) => {
           const updated = [...prev];
-          updated[updated.length - 1].text = text.slice(0, index);
+          const lastIndex = updated.length - 1;
+          updated[lastIndex] = {
+            ...updated[lastIndex],
+            text: text.slice(0, index),
+          };
           return updated;
         });
 
@@ -44,89 +56,241 @@ export default function Home() {
         { role: "ai", text: "Error connecting to AI" },
       ]);
     }
-
-    setInput("");
   };
 
   return (
-    <div style={{ position: "relative", color: "white" }}>
-      
-      {/* 🌌 SAFE BACKGROUND */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: -1,
-          background:
-            "radial-gradient(circle at 20% 20%, #111, #000 60%)",
-        }}
-      />
+    <div style={{ position: "relative", color: "white" }} suppressHydrationWarning>
+      <HudBackground />
 
-      {/* 🚀 HERO */}
-      <section style={{ textAlign: "center", padding: "120px 20px" }}>
-        
-        <motion.h1
-          initial={{ opacity: 0, y: -100 }}
+      <motion.header
+        initial={{ opacity: 0, y: -18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="lux-nav"
+      >
+        <div className="lux-nav-inner">
+          <motion.div whileHover={{ scale: 1.03 }} className="brand-mark">
+            Adarsh AI
+          </motion.div>
+
+          <nav className="lux-nav-links">
+            <a href="#capabilities" className="nav-link">Capabilities</a>
+            <a href="#standard" className="nav-link">Standard</a>
+            <a href="#experience" className="nav-link">Experience</a>
+            <a href="#contact" className="nav-link">Contact</a>
+          </nav>
+        </div>
+      </motion.header>
+
+      <section className="hero-wrap">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.15, ease: "easeOut" }}
+          className="hero-orb"
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: -24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          style={{
-            fontSize: "70px",
-            fontWeight: "bold",
-            background: "linear-gradient(90deg, #00f5ff, #7a00ff)",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-          }}
+          className="eyebrow-chip"
+        >
+          Precision AI Systems
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: -90 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.95, ease: "easeOut" }}
+          className="hero-title"
         >
           Adarsh AI
         </motion.h1>
 
-        <p style={{ opacity: 0.7, marginTop: 10 }}>
-          Build. Automate. Scale with AI 🚀
-        </p>
-
-        <p
-          style={{
-            opacity: 0.6,
-            marginTop: 10,
-            maxWidth: 600,
-            marginInline: "auto",
-          }}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="hero-subtitle"
         >
-          I help businesses automate workflows, build AI systems, and scale faster.
-        </p>
+          Automation, Refined.
+        </motion.p>
 
-        <div style={{ marginTop: 30 }}>
-          <button className="btn" style={{ marginRight: 10 }}>
-            🚀 Get Started
-          </button>
-          <button className="btn">💼 Hire Me</button>
-        </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.45 }}
+          className="hero-description"
+        >
+          Crafted AI systems, digital experiences, and automation workflows for
+          ambitious brands that expect elegance, speed, and precision.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          style={{ marginTop: 34 }}
+        >
+          <motion.button
+            suppressHydrationWarning
+            className="btn btn-premium"
+            style={{ marginRight: 12 }}
+            whileHover={{ y: -4, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Begin the Experience
+          </motion.button>
+
+          <motion.button
+            suppressHydrationWarning
+            className="btn btn-ghost"
+            whileHover={{ y: -4, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Private Consultation
+          </motion.button>
+        </motion.div>
       </section>
 
-      {/* 🤖 CHAT */}
-      <section style={{ padding: 20 }}>
-        <div className="glass" style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
-          <h2>🤖 Talk to Adarsh AI</h2>
+      <motion.section
+        id="capabilities"
+        className="section-shell"
+        {...fadeUp}
+      >
+        <div className="lux-grid-3">
+          <motion.div className="glass card-hover premium-card large-card" whileHover={{ y: -10 }}>
+            <div className="eyebrow">Signature Capability</div>
+            <h2 className="section-title">Conversational Intelligence</h2>
+            <p className="muted-text">
+              Premium AI assistants engineered to feel fast, polished, and deeply
+              aligned with your business workflow.
+            </p>
+          </motion.div>
 
-          <div
-            style={{
-              height: 300,
-              overflowY: "auto",
-              background: "#111",
-              padding: 10,
-              borderRadius: 10,
-            }}
-          >
+          <motion.div className="glass card-hover premium-card" whileHover={{ y: -10 }}>
+            <div className="eyebrow">System I</div>
+            <h3 className="card-title">Workflow Automation</h3>
+            <p className="muted-text">
+              Replace repetitive manual effort with elegant, scalable systems.
+            </p>
+          </motion.div>
+
+          <motion.div className="glass card-hover premium-card" whileHover={{ y: -10 }}>
+            <div className="eyebrow">System II</div>
+            <h3 className="card-title">Digital Presence</h3>
+            <p className="muted-text">
+              High-end interfaces and websites built with clarity, depth, and presence.
+            </p>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="standard"
+        className="section-shell"
+        {...fadeUp}
+      >
+        <div className="glass premium-card wide-card">
+          <div className="eyebrow">The Standard</div>
+          <div className="lux-grid-2 standard-grid">
+            <div>
+              <h2 className="section-title-xl">
+                Built with precision,
+                <br />
+                not noise.
+              </h2>
+            </div>
+            <div className="muted-text">
+              Every system is designed for clarity, elegance, and measurable
+              impact. The objective is not to add more tools. It is to create
+              refined leverage that saves time, elevates experience, and scales
+              intelligently.
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section className="section-shell" {...fadeUp}>
+        <div className="lux-grid-3">
+          {[
+            ["Craft", "Discover", "Understand the business, the friction, and the hidden leverage."],
+            ["Craft", "Engineer", "Design systems that feel premium while performing with speed and stability."],
+            ["Craft", "Refine", "Remove friction, polish the details, and elevate the full experience."],
+          ].map(([eyebrow, title, desc], i) => (
+            <motion.div
+              key={i}
+              className="glass card-hover premium-card"
+              whileHover={{ y: -10 }}
+            >
+              <div className="eyebrow">{eyebrow}</div>
+              <h3 className="card-title">{title}</h3>
+              <p className="muted-text">{desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="experience"
+        className="section-shell"
+        {...fadeUp}
+      >
+        <div className="lux-grid-experience">
+          <motion.div className="glass card-hover premium-card" whileHover={{ y: -8 }}>
+            <div className="eyebrow">Private Client Experience</div>
+            <h2 className="section-title-xl">
+              For founders, creators,
+              <br />
+              and ambitious brands.
+            </h2>
+            <p className="muted-text">
+              Select systems for businesses that value elegance, speed, and
+              strategic execution. The goal is not just automation. It is a
+              superior operating experience.
+            </p>
+          </motion.div>
+
+          <motion.div className="glass card-hover premium-card" whileHover={{ y: -8 }}>
+            <div className="eyebrow">Prestige Metrics</div>
+            <div className="metrics-stack">
+              <div>
+                <div className="metric-number">10+</div>
+                <div className="metric-label">Systems and builds explored</div>
+              </div>
+              <div>
+                <div className="metric-number">24/7</div>
+                <div className="metric-label">Automation-first mindset</div>
+              </div>
+              <div>
+                <div className="metric-number">100%</div>
+                <div className="metric-label">Focused on execution</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      <motion.section className="chat-shell" {...fadeUp}>
+        <motion.div
+          className="glass premium-card chat-card"
+          whileHover={{ y: -6 }}
+        >
+          <div className="eyebrow">Interactive Preview</div>
+          <h2 className="section-title-sm">Speak with Adarsh AI</h2>
+
+          <div className="chat-window">
             {messages.map((m, i) => (
-              <div key={i} style={{ textAlign: m.role === "user" ? "right" : "left" }}>
+              <div
+                key={i}
+                style={{
+                  textAlign: m.role === "user" ? "right" : "left",
+                  marginBottom: 10,
+                }}
+              >
                 <span
-                  style={{
-                    background: m.role === "user" ? "#0070f3" : "#222",
-                    padding: "6px 10px",
-                    borderRadius: 8,
-                    display: "inline-block",
-                    marginBottom: 8,
-                  }}
+                  className={m.role === "user" ? "bubble-user" : "bubble-ai"}
                 >
                   {m.text}
                 </span>
@@ -134,93 +298,58 @@ export default function Home() {
             ))}
           </div>
 
-          <div style={{ display: "flex", marginTop: 10 }}>
+          <div className="chat-input-row">
             <input
+              suppressHydrationWarning
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask anything..."
-              style={{ flex: 1, padding: 10 }}
+              className="chat-input"
             />
-            <button className="btn" onClick={sendMessage}>
+            <motion.button
+              suppressHydrationWarning
+              className="btn btn-premium"
+              onClick={sendMessage}
+              whileHover={{ y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+            >
               Send
-            </button>
+            </motion.button>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      {/* 💎 PROBLEM / SOLUTION / VISION */}
-      <section style={{ padding: 40, textAlign: "center" }}>
-        <div className="glass" style={{ marginBottom: 20, padding: 20 }}>
-          <h2>❌ Problem</h2>
-          <p>Businesses waste time doing repetitive tasks.</p>
-        </div>
-
-        <div className="glass" style={{ marginBottom: 20, padding: 20 }}>
-          <h2>✅ Solution</h2>
-          <p>Adarsh AI automates workflows using AI systems.</p>
-        </div>
-
-        <div className="glass" style={{ padding: 20 }}>
-          <h2>🚀 Vision</h2>
-          <p>Build scalable AI tools used globally.</p>
-        </div>
-      </section>
-
-      {/* 🔥 FEATURES */}
-      <section style={{ padding: 60, textAlign: "center" }}>
-        <h2>⚡ What I Build</h2>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: 20,
-            maxWidth: 1000,
-            margin: "auto",
-            marginTop: 30,
-          }}
+      <motion.section
+        id="contact"
+        className="contact-shell"
+        {...fadeUp}
+      >
+        <motion.div
+          className="glass premium-card contact-card"
+          whileHover={{ y: -6 }}
         >
-          <div className="glass" style={{ padding: 20 }}>
-            <h3>🤖 AI Chatbots</h3>
-            <p>Smart assistants for automation.</p>
-          </div>
+          <div className="eyebrow">Private Consultation</div>
 
-          <div className="glass" style={{ padding: 20 }}>
-            <h3>⚡ Automation</h3>
-            <p>Save time using AI workflows.</p>
-          </div>
+          <h2 className="section-title-xl">Begin the Experience</h2>
 
-          <div className="glass" style={{ padding: 20 }}>
-            <h3>🌐 Websites</h3>
-            <p>Modern SaaS UI websites.</p>
-          </div>
-        </div>
-      </section>
+          <p className="muted-text contact-copy">
+            For businesses ready to move beyond ordinary execution and into a
+            more refined AI-driven future.
+          </p>
 
-      {/* 📊 STATS */}
-      <section style={{ padding: 60, textAlign: "center" }}>
-        <h2>📈 Growth Impact</h2>
+          <motion.button
+            suppressHydrationWarning
+            className="btn btn-premium"
+            style={{ marginTop: 24 }}
+            whileHover={{ y: -2, scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Request a Consultation
+          </motion.button>
+        </motion.div>
+      </motion.section>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 40, marginTop: 30, flexWrap: "wrap" }}>
-          <div><h1>10+</h1><p>Projects</p></div>
-          <div><h1>100%</h1><p>Focus</p></div>
-          <div><h1>24/7</h1><p>Automation</p></div>
-        </div>
-      </section>
-
-      {/* 🚀 CTA */}
-      <section style={{ padding: 80, textAlign: "center" }}>
-        <h2>🚀 Ready to Build?</h2>
-        <p style={{ opacity: 0.7 }}>Let’s create your AI system.</p>
-        <button className="btn" style={{ marginTop: 20 }}>
-          Contact Me
-        </button>
-      </section>
-
-      {/* FOOTER */}
-      <footer style={{ textAlign: "center", padding: 30, opacity: 0.5 }}>
-        © 2026 Adarsh AI
-      </footer>
+      <footer className="lux-footer">© 2026 Adarsh AI</footer>
     </div>
   );
 }
