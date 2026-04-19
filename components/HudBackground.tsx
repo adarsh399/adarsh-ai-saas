@@ -14,7 +14,6 @@ export default function HudBackground() {
           "radial-gradient(circle at 50% 38%, rgba(20,24,32,0.96) 0%, rgba(8,10,14,0.98) 45%, #000 100%)",
       }}
     >
-      {/* deep luxury vignette */}
       <div
         style={{
           position: "absolute",
@@ -24,7 +23,6 @@ export default function HudBackground() {
         }}
       />
 
-      {/* center atmospheric glow */}
       <motion.div
         animate={{
           opacity: [0.12, 0.2, 0.12],
@@ -33,7 +31,6 @@ export default function HudBackground() {
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: "easeInOut",
         }}
         style={{
           position: "absolute",
@@ -49,7 +46,6 @@ export default function HudBackground() {
         }}
       />
 
-      {/* premium spotlight */}
       <motion.div
         animate={{
           opacity: [0.05, 0.1, 0.05],
@@ -57,7 +53,6 @@ export default function HudBackground() {
         transition={{
           duration: 7,
           repeat: Infinity,
-          ease: "easeInOut",
         }}
         style={{
           position: "absolute",
@@ -72,13 +67,11 @@ export default function HudBackground() {
         }}
       />
 
-      {/* primary ring system */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{
           duration: 120,
           repeat: Infinity,
-          ease: "linear",
         }}
         style={{
           position: "absolute",
@@ -112,10 +105,8 @@ export default function HudBackground() {
             </filter>
           </defs>
 
-          {/* inner wash */}
           <circle cx="500" cy="500" r="290" fill="url(#luxRingGlow)" />
 
-          {/* main concentric rings */}
           {[130, 190, 250, 315, 390, 455].map((r, i) => (
             <circle
               key={r}
@@ -133,7 +124,6 @@ export default function HudBackground() {
             />
           ))}
 
-          {/* radial geometry */}
           {Array.from({ length: 56 }).map((_, i) => {
             const angle = (i * 360) / 56;
             return (
@@ -154,7 +144,6 @@ export default function HudBackground() {
             );
           })}
 
-          {/* premium arcs */}
           <g filter="url(#luxGlow)">
             <path
               d="M 500 110 A 390 390 0 0 1 788 245"
@@ -179,7 +168,6 @@ export default function HudBackground() {
             />
           </g>
 
-          {/* signature central construction */}
           <circle
             cx="500"
             cy="500"
@@ -207,13 +195,11 @@ export default function HudBackground() {
         </svg>
       </motion.div>
 
-      {/* secondary reverse structure */}
       <motion.div
         animate={{ rotate: -360 }}
         transition={{
           duration: 180,
           repeat: Infinity,
-          ease: "linear",
         }}
         style={{
           position: "absolute",
@@ -262,7 +248,6 @@ export default function HudBackground() {
         </svg>
       </motion.div>
 
-      {/* subtle lower glow */}
       <div
         style={{
           position: "absolute",

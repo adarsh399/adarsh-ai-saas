@@ -7,7 +7,7 @@ import HudBackground from "../components/HudBackground";
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+  transition: { duration: 0.8 },
   viewport: { once: true, amount: 0.2 },
 };
 
@@ -86,7 +86,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.15, ease: "easeOut" }}
+          transition={{ duration: 1.15 }}
           className="hero-orb"
         />
 
@@ -102,7 +102,7 @@ export default function Home() {
         <motion.h1
           initial={{ opacity: 0, y: -90 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.95, ease: "easeOut" }}
+          transition={{ duration: 0.95 }}
           className="hero-title"
         >
           Adarsh AI
