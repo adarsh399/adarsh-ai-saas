@@ -39,8 +39,10 @@ img, svg, video, canvas {
 }
 
 .lux-nav {
-  position: sticky;
+  position: absolute;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 50;
 }
 
@@ -108,7 +110,7 @@ img, svg, video, canvas {
 
 .hero-wrap {
   text-align: center;
-  padding: 150px 20px 120px;
+  padding: 70px 20px 120px;
   position: relative;
   max-width: 1260px;
   margin: 0 auto;
