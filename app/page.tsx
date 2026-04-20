@@ -131,12 +131,11 @@ export default function Home() {
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          style={{ marginTop: 34 }}
+          className="hero-buttons"
         >
           <motion.button
             suppressHydrationWarning
             className="btn btn-premium"
-            style={{ marginRight: 12 }}
             whileHover={{ y: -4, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -29,9 +33,15 @@ p {
   margin: 0;
 }
 
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
 .lux-nav {
   position: sticky;
   top: 0;
+  z-index: 50;
 }
 
 .lux-nav-inner {
@@ -41,6 +51,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .brand-mark {
@@ -50,6 +61,7 @@ p {
   background: linear-gradient(90deg, #ffffff, #dff6ff 35%, #8b5cf6 100%);
   -webkit-background-clip: text;
   color: transparent;
+  flex-shrink: 0;
 }
 
 .lux-nav-links {
@@ -57,6 +69,8 @@ p {
   gap: 24px;
   font-size: 14px;
   opacity: 0.84;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav-link {
@@ -129,7 +143,7 @@ p {
 }
 
 .hero-title {
-  font-size: 92px;
+  font-size: clamp(52px, 10vw, 92px);
   line-height: 0.95;
   font-weight: 800;
   letter-spacing: -3px;
@@ -145,11 +159,12 @@ p {
   -webkit-background-clip: text;
   color: transparent;
   text-shadow: 0 0 36px rgba(120,180,255,0.08);
+  word-break: break-word;
 }
 
 .hero-subtitle {
   margin-top: 20px;
-  font-size: 24px;
+  font-size: clamp(18px, 3vw, 24px);
   opacity: 0.82;
   letter-spacing: -0.4px;
 }
@@ -160,6 +175,14 @@ p {
   opacity: 0.58;
   font-size: 16px;
   line-height: 1.8;
+}
+
+.hero-buttons {
+  margin-top: 34px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .section-shell {
@@ -202,6 +225,12 @@ p {
 .standard-grid {
   margin-top: 20px;
   align-items: start;
+}
+
+.lux-grid-3 > *,
+.lux-grid-2 > *,
+.lux-grid-experience > * {
+  min-width: 0;
 }
 
 .glass {
@@ -248,23 +277,27 @@ p {
 .card-title {
   font-size: 26px;
   margin-top: 14px;
+  word-break: break-word;
 }
 
 .section-title {
-  font-size: 36px;
+  font-size: clamp(28px, 4vw, 36px);
   margin-top: 14px;
   margin-bottom: 12px;
+  word-break: break-word;
 }
 
 .section-title-sm {
   margin-top: 14px;
+  font-size: clamp(24px, 4vw, 32px);
 }
 
 .section-title-xl {
-  font-size: 42px;
+  font-size: clamp(32px, 5vw, 42px);
   line-height: 1.08;
   margin-top: 16px;
   margin-bottom: 14px;
+  word-break: break-word;
 }
 
 .eyebrow {
@@ -326,6 +359,7 @@ p {
   border-radius: 10px;
   display: inline-block;
   max-width: 80%;
+  word-break: break-word;
 }
 
 .bubble-ai {
@@ -334,6 +368,7 @@ p {
   border-radius: 10px;
   display: inline-block;
   max-width: 80%;
+  word-break: break-word;
 }
 
 .contact-card {
@@ -400,11 +435,13 @@ textarea {
     box-shadow 0.25s ease,
     background 0.25s ease,
     transform 0.25s ease;
+  width: 100%;
 }
 
 .chat-input {
   flex: 1;
   padding: 12px;
+  min-width: 0;
 }
 
 input::placeholder,
@@ -450,4 +487,128 @@ textarea:focus {
     rgba(220,235,255,0.42),
     rgba(145,165,210,0.34)
   );
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .lux-grid-3,
+  .lux-grid-experience,
+  .lux-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-wrap {
+    padding: 130px 20px 90px;
+  }
+
+  .hero-orb {
+    width: 150px;
+    height: 150px;
+  }
+
+  .premium-card,
+  .wide-card,
+  .contact-card,
+  .chat-card {
+    padding: 24px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .lux-nav-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+  }
+
+  .lux-nav-links {
+    gap: 14px;
+    font-size: 13px;
+    justify-content: flex-start;
+  }
+
+  .hero-wrap {
+    padding: 110px 16px 70px;
+  }
+
+  .hero-orb {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 20px;
+  }
+
+  .eyebrow-chip {
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    padding: 7px 12px;
+    margin-bottom: 18px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .section-shell,
+  .chat-shell,
+  .contact-shell {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 60px;
+  }
+
+  .premium-card,
+  .wide-card,
+  .contact-card,
+  .chat-card,
+  .large-card {
+    padding: 20px;
+    min-height: unset;
+  }
+
+  .card-title {
+    font-size: 22px;
+  }
+
+  .section-title,
+  .section-title-sm,
+  .section-title-xl {
+    line-height: 1.12;
+  }
+
+  .metric-number {
+    font-size: 32px;
+  }
+
+  .chat-window {
+    height: 260px;
+  }
+
+  .chat-input-row {
+    flex-direction: column;
+  }
+
+  .chat-input-row .btn {
+    width: 100%;
+  }
+
+  .bubble-user,
+  .bubble-ai {
+    max-width: 100%;
+  }
+
+  .lux-footer {
+    padding: 26px 16px 34px;
+    font-size: 13px;
+  }
 }
